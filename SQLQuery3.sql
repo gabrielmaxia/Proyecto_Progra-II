@@ -203,29 +203,29 @@ INSERT INTO Roles (nombre_rol, descripcion) VALUES
 
 INSERT INTO TiposInconveniente (nombre_tipo, descripcion) VALUES
 ('Lentitud en el sistema', 'El sistema responde muy lento'),
-('Error al realizar una acci�n', 'Se produce un error al ejecutar alguna funcionalidad'),
-('Error al acceder a una opci�n', 'No se puede acceder a determinada opci�n del men�'),
-('Error de visualizaci�n', 'Problemas de visualizaci�n en la interfaz'),
+('Error al realizar una acción', 'Se produce un error al ejecutar alguna funcionalidad'),
+('Error al acceder a una opción', 'No se puede acceder a determinada opción del menú'),
+('Error de visualización', 'Problemas de visualización en la interfaz'),
 ('Otros', 'Otros tipos de inconvenientes no especificados');
 
 INSERT INTO AreasComunes (nombre_area, descripcion) VALUES
-('Sal�n', 'Sal�n de eventos para reuniones y celebraciones'),
-('Piscina', '�rea de piscina para recreaci�n');
+('Salón', 'Salón de eventos para reuniones y celebraciones'),
+('Piscina', 'Área de piscina para recreación');
 
 INSERT INTO TiposVisita (nombre_tipo, descripcion) VALUES
-('VISITA', 'Visita programada para fecha espec�fica'),
-('POR_INTENTOS', 'Visita con n�mero limitado de intentos de acceso');
+('VISITA', 'Visita programada para fecha específica'),
+('POR_INTENTOS', 'Visita con número limitado de intentos de acceso');
 
 INSERT INTO TiposPago (nombre_tipo, monto_base, descripcion) VALUES
 ('Mantenimiento', 550.00, 'Pago mensual de mantenimiento'),
 ('Multa', 250.00, 'Multa por infracciones'),
-('Reinstalaci�n de servicios', 750.00, 'Costo de reinstalaci�n de servicios');
+('Reinstalación de servicios', 750.00, 'Costo de reinstalación de servicios');
 
 INSERT INTO TiposIncidente (nombre_tipo, descripcion) VALUES
-('Disturbios', 'Disturbios en el �rea com�n'),
+('Disturbios', 'Disturbios en el Área común'),
 ('Ruido', 'Ruido excesivo que molesta a otros residentes'),
-('Accidente vehicular', 'Accidente de veh�culos dentro del residencial'),
-('Da�os inmobiliarios', 'Da�os a la propiedad com�n'),
+('Accidente vehicular', 'Accidente de vehículos dentro del residencial'),
+('Daños inmobiliarios', 'Daños a la propiedad común'),
 ('Otros', 'Otros tipos de incidentes');
 
 -- �ndices para optimizar consultas
@@ -244,3 +244,4 @@ ALTER TABLE Reservas ADD CONSTRAINT CK_Hora_Valida CHECK (hora_fin > hora_inicio
 ALTER TABLE Visitantes ADD CONSTRAINT CK_Intentos_Positivos CHECK (intentos_permitidos > 0);
 
 GO
+
