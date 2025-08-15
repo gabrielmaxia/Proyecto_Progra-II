@@ -228,7 +228,7 @@ INSERT INTO TiposIncidente (nombre_tipo, descripcion) VALUES
 ('Daños inmobiliarios', 'Daños a la propiedad común'),
 ('Otros', 'Otros tipos de incidentes');
 
--- �ndices para optimizar consultas
+-- índices para optimizar consultas
 CREATE INDEX IX_Usuarios_DPI ON Usuarios(dpi);
 CREATE INDEX IX_Usuarios_Correo ON Usuarios(correo);
 CREATE INDEX IX_Usuarios_Rol ON Usuarios(id_rol);
@@ -244,4 +244,5 @@ ALTER TABLE Reservas ADD CONSTRAINT CK_Hora_Valida CHECK (hora_fin > hora_inicio
 ALTER TABLE Visitantes ADD CONSTRAINT CK_Intentos_Positivos CHECK (intentos_permitidos > 0);
 
 GO
+
 
