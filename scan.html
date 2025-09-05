@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Escanear QR</title>
+    <script src="https://cdn.jsdelivr.net/npm/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 20px;
+            background-color: #f0f0f0;
+        }
+        #reader {
+            width: 400px;
+            height: 300px;
+            margin: 20px auto;
+            border: 2px solid #333;
+            background-color: #000;
+        }
+        #resultado {
+            font-weight: bold;
+            font-size: 18px;
+            margin: 15px;
+            padding: 10px;
+            background-color: #e8f5e9;
+            border-radius: 5px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 10px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <h2>Escanear QR</h2>
+    <div id="reader"></div>
+    <div id="resultado">Esperando escaneo...</div>
+    <button id="restartBtn" onclick="restartScanner()" style="display:none;">Escanear otro</button>
+
+    <script>
+        let html5QrScanner = null;
+
+        function onScanSuccess(decodedText, decodedResult) {
+            // Mostrar solo el QR leído
+            document.getElementById("resultado").innerHTML = "QR leído: " + decodedText;
+            
+            // Detener el escáner
+            if (html5QrScanner) {
+                html5QrScanner.clear();
+            }
+            
+            // Mostrar botón de reinicio
+            document.getElementById("restartBtn").style.display = 'block';
+            
+            // Enviar al servidor (pero no mostrar la respuesta)
+            fetch("ProcesarQR", {
+                method: "POST",
+                headers: { 
+                    "Content-Type": "application/x-www-form-urlencoded",
+                },
+                body: "codigo=" + encodeURIComponent(decodedText)
+            })
+            .catch(error => {
+                console.error("Error enviando al servidor:", error);
+            });
+        }
+
+        function initScanner() {
+            // Limpiar contenedor
+            document.getElementById("reader").innerHTML = '';
+            
+            // Inicializar escáner
+            html5QrScanner = new Html5QrcodeScanner(
+                "reader", 
+                { 
+                    fps: 10, 
+                    qrbox: { width: 250, height: 250 } 
+                }
+            );
+            
+            html5QrScanner.render(onScanSuccess);
+            document.getElementById("resultado").innerHTML = "Escáner listo...";
+            document.getElementById("restartBtn").style.display = 'none';
+        }
+
+        function restartScanner() {
+            initScanner();
+        }
+
+        // Iniciar cuando cargue la página
+        window.onload = initScanner;
+    </script>
+</body>
+</html>
